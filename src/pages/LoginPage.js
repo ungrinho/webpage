@@ -17,6 +17,7 @@ import ErrorMessage from '../components/ErrorMessage';
 import LoadingSpinner from '../components/LoadingSpinner';
 import { useFirebase } from "react-redux-firebase";
 import { Redirect } from "react-router-dom"
+import axios from 'axios';
 
 
 
@@ -78,6 +79,84 @@ const Button = styled.button`
 //   };
 
 
+
+
+
+// ///////////////////////////////////////////////////
+// const LoginPage = React.memo(() => {
+//   const [email, setEmail] = useState('');
+//   const [password, setPassword] = useState('');
+//   const [error, setError] = useState('');
+//   const [loading, setLoading] = useState(false);
+//   const navigate = useNavigate();
+
+
+//   useEffect(() => {
+
+//     onAuthStateChanged(auth, (user) => {
+//       if (user) {
+//         console.log("현재 로그인 중인 유저의 uid :", user.uid)
+//         localStorage.setItem("uid", user.uid);
+//       } else {
+//         console.log("로그인 유저가 없습니다!")
+//         localStorage.setItem("uid", null)
+//       }
+//     });
+//   }, [])
+
+
+    
+
+//   const handleLogin = (e) => {
+//     e.preventDefault();
+//     setLoading(true);
+//     setPersistence(auth, browserSessionPersistence)
+//     .then(() => {
+//       console.log(email, password)
+//       signInWithEmailAndPassword(auth, email, password).then((user) => {
+//         console.log(user)
+//         navigate("/main")
+//       }).catch(() => {
+//         navigate("/")
+//       });
+//     })
+//     .catch((error) => {
+//       // Handle Errors here.
+//       const errorCode = error.code;
+//       const errorMessage = error.message;
+//     });
+//     setLoading(false);
+//   };
+
+//   const handleGoogleLogin = async () => {
+//     setLoading(true);
+//     try {
+//       // 세션 지속성 설정
+//       await setPersistence(auth, browserSessionPersistence);
+//       const provider = new GoogleAuthProvider();
+//       // Google 로그인 수행
+//       await signInWithPopup(auth, provider).then(() => {
+//         console.log("커몬")
+//       });
+//       navigate('/main');
+//     } catch (error) {
+//       setError(error.message);
+//     } finally {
+//       setLoading(false);
+//     }
+//   };
+
+
+//   if (loading) {
+//     return <LoadingSpinner />;
+//   }
+
+
+
+
+
+
+
 const LoginPage = React.memo(() => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -86,46 +165,56 @@ const LoginPage = React.memo(() => {
   const navigate = useNavigate();
 
   useEffect(() => {
-
-    onAuthStateChanged(auth, (user) => {
+    onAuthStateChanged(auth, async (user) => {
       if (user) {
-        console.log("유저 있는 부분:", user)
-        navigate("/main")
+        console.log("현재 로그인 중인 유저의 uid :", user.uid);
+        localStorage.setItem("uid", user.uid);
+        
+        // Spring Boot 백엔드에 UID 저장 요청
+        try {
+          const response = await axios.post('http://localhost:8080/api/saveUID', {
+            uid: user.uid,
+            email: user.email
+          });
+          console.log(response.data);
+        } catch (error) {
+          console.error('Error saving UID:', error);
+        }
       } else {
-        console.log("유저 없는 부분 : 노 유저!")
-        navigate("/")
+        console.log("로그인 유저가 없습니다!");
+        localStorage.setItem("uid", null);
       }
     });
-  }, [])
+  }, []);
 
   const handleLogin = (e) => {
     e.preventDefault();
     setLoading(true);
     setPersistence(auth, browserSessionPersistence)
-    .then(() => {
-      console.log(email, password)
-      signInWithEmailAndPassword(auth, email, password).then((user) => {
-        console.log(user)
-        navigate("/main")
-      }).catch(() => {
-        navigate("/")
+      .then(() => {
+        console.log(email, password);
+        signInWithEmailAndPassword(auth, email, password).then((user) => {
+          console.log(user);
+          navigate("/main");
+        }).catch(() => {
+          navigate("/");
+        });
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        setError(errorMessage);
+      })
+      .finally(() => {
+        setLoading(false);
       });
-    })
-    .catch((error) => {
-      // Handle Errors here.
-      const errorCode = error.code;
-      const errorMessage = error.message;
-    });
-    setLoading(false);
   };
 
   const handleGoogleLogin = async () => {
     setLoading(true);
     try {
-      // 세션 지속성 설정
       await setPersistence(auth, browserSessionPersistence);
       const provider = new GoogleAuthProvider();
-      // Google 로그인 수행
       await signInWithPopup(auth, provider);
       navigate('/main');
     } catch (error) {
@@ -135,10 +224,12 @@ const LoginPage = React.memo(() => {
     }
   };
 
-
   if (loading) {
     return <LoadingSpinner />;
   }
+
+
+
 
   return (
     <LoginContainer>

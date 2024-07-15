@@ -70,10 +70,10 @@ const LogoutButton = styled.button`
 const MainPage = React.memo(() => {
   const navigate = useNavigate();
   const [farmName, setFarmName] = useState('');
-  const [currentTemp, setCurrentTemp] = useState(0);
-  const [currentHumidity, setCurrentHumidity] = useState(0);
-  const [avgTemp, setAvgTemp] = useState(0);
-  const [avgHumidity, setAvgHumidity] = useState(0);
+  // const [currentTemp, setCurrentTemp] = useState(0);
+  // const [currentHumidity, setCurrentHumidity] = useState(0);
+  // const [avgTemp, setAvgTemp] = useState(0);
+  // const [avgHumidity, setAvgHumidity] = useState(0);
   const [robotStatus, setRobotStatus] = useState('');
   const [robotBattery, setRobotBattery] = useState(0);
   const [sensorData, setSensorData] = useState({ temperature: null, humidity: null });
@@ -111,10 +111,11 @@ const MainPage = React.memo(() => {
 
     onAuthStateChanged(auth, (user) => {
       if (user) {
-        console.log("유저 있는 부분:", user)
+        console.log("현재 로그인 중인 유저의 uid :", user.uid)
+        localStorage.setItem("uid", user.uid)
       } else {
-        console.log("유저 없는 부분 : 노 유저!")
-        navigate("/")
+        console.log("로그인 유저가 없습니다!")
+        localStorage.setItem("uid", null)
       }
     });
   }, [])
@@ -212,14 +213,6 @@ const MainPage = React.memo(() => {
     setUpdateFlag(false)
   }, [sensorData])
 
-    return (
-      <div>
-        <h1>Main Page</h1>
-        <YesterdayData />
-        {/* 다른 메인 페이지 컴포넌트들 */}
-      </div>
-    );
-
 
   return (
     <MainContainer>
@@ -251,8 +244,9 @@ const MainPage = React.memo(() => {
           <p>온도: {sensorData.temperature}°C</p>
           <p>습도: {sensorData.humidity}%</p>
           <h3>전날 평균 온습도</h3>
-          <p>온도: {avgTemp}°C</p>
-          <p>습도: {avgHumidity}%</p>
+          <YesterdayData />
+          {/* <p>온도: {avgTemp}°C</p>
+          <p>습도: {avgHumidity}%</p> */}
         </Card>
         <Card>
           <h3>관리 페이지</h3>
