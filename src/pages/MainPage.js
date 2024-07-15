@@ -4,6 +4,7 @@ import axios from 'axios';
 import { auth } from '../services/firebase';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, setPersistence, onAuthStateChanged, browserSessionPersistence, signOut} from 'firebase/auth';
+import YesterdayData from '../components/YesterdayData';
 // import useRosConnection from '../hooks/useRosConnection'; // ros 연결 시 닷 ㅣㄱㄱ
 
 const MainContainer = styled.div`
@@ -211,7 +212,13 @@ const MainPage = React.memo(() => {
     setUpdateFlag(false)
   }, [sensorData])
 
-
+    return (
+      <div>
+        <h1>Main Page</h1>
+        <YesterdayData />
+        {/* 다른 메인 페이지 컴포넌트들 */}
+      </div>
+    );
 
 
   return (
