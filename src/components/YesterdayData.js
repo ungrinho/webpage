@@ -1,37 +1,3 @@
-// import React, { useState, useEffect } from 'react';
-// import axios from 'axios';
-
-// function YesterdayData() {
-//   const [yesterdayData, setYesterdayData] = useState(null);
-
-//   useEffect(() => {
-//     const fetchYesterdayData = async () => {
-//       try {
-//         const response = await axios.get('http://localhost:8080/api/yesterdaySummary');
-//         setYesterdayData(response.data);
-//       } catch (error) {
-//         console.error('Error fetching yesterday data:', error);
-//       }
-//     };
-
-//     fetchYesterdayData();
-//   }, []);
-
-//   if (!yesterdayData) {
-//     return <div>Loading...</div>;
-//   }
-
-//   return (
-//     <div>
-//       <p>Temperature: {yesterdayData.avg_temp.toFixed(2)}°C</p>
-//       <p>Humidity: {yesterdayData.avg_humidity.toFixed(2)}%</p>
-//     </div>
-//   );
-// }
-
-// export default YesterdayData;
-
-
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 

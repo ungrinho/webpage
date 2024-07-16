@@ -5,7 +5,7 @@ import { auth } from '../services/firebase';
 import { Link, useNavigate } from 'react-router-dom';
 import { getAuth, signInWithEmailAndPassword, signInWithPopup, GoogleAuthProvider, setPersistence, onAuthStateChanged, browserSessionPersistence, signOut} from 'firebase/auth';
 import YesterdayData from '../components/YesterdayData';
-// import useRosConnection from '../hooks/useRosConnection'; // ros 연결 시 닷 ㅣㄱㄱ
+
 
 const MainContainer = styled.div`
   display: flex;
@@ -70,10 +70,6 @@ const LogoutButton = styled.button`
 const MainPage = React.memo(() => {
   const navigate = useNavigate();
   const [farmName, setFarmName] = useState('');
-  // const [currentTemp, setCurrentTemp] = useState(0);
-  // const [currentHumidity, setCurrentHumidity] = useState(0);
-  // const [avgTemp, setAvgTemp] = useState(0);
-  // const [avgHumidity, setAvgHumidity] = useState(0);
   const [robotStatus, setRobotStatus] = useState('');
   const [robotBattery, setRobotBattery] = useState(0);
   const [sensorData, setSensorData] = useState({ temperature: null, humidity: null });
@@ -93,18 +89,6 @@ const MainPage = React.memo(() => {
       console.error("로그아웃 중 오류 발생:", error);
     }
   };
-  // const { batteryLevel, robotStatus } = useRosConnection();    // 이거는 ros 연결시  다시 ㄱㄱ
-
-  //useEffect(() => {
-    // 데이터 fetch 로직 (MariaDB, 아두이노 센서, 젯봇 미니카)
-    // 예시:
-    // axios.get('/api/farm-data').then(response => {
-    //   setCurrentTemp(response.data.currentTemp);
-    //   setCurrentHumidity(response.data.currentHumidity);
-    //   setAvgTemp(response.data.avgTemp);
-    //   setAvgHumidity(response.data.avgHumidity);
-    // });
-  //}, []);
 
   
   useEffect(() => {
@@ -216,16 +200,6 @@ const MainPage = React.memo(() => {
 
   return (
     <MainContainer>
-      <Sidebar>
-        <h2>메뉴</h2>
-        <ul>
-          <li><Link to="/manage">홈 화면</Link></li>
-          <li><Link to="/manage">관리 페이지</Link></li>
-          <li><Link to="/objects">객체 확인 페이지</Link></li>
-          <li><Link to="/cs">CS 페이지</Link></li>
-        </ul>
-        <LogoutButton onClick={onLogoutClick}>로그아웃</LogoutButton>
-      </Sidebar>
       <Content>
         <Header>
           <input
