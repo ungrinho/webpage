@@ -23,6 +23,7 @@ const LogoutButton = styled.button`
   border-radius: 4px;
   cursor: pointer;
   margin-top: 20px;
+  alignItems: 'flex-end'
 `;
 
 const Sidebar = () => {
@@ -46,7 +47,7 @@ const Sidebar = () => {
 
   return (
     <SidebarContainer>
-      <h2>메뉴</h2>
+      <h2>MENU</h2>
       <ul>
         <li><Link to="/main" onClick={() => handleMenuClick('/')}>홈 화면</Link></li>
         <li><Link to="/manage" onClick={() => handleMenuClick('/main')}>관리 페이지</Link></li>
