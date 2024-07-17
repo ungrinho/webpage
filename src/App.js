@@ -44,6 +44,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import MainPage from './pages/MainPage';
+import CSPage from './pages/CSPage';
 import ObjectDetectionPage from './pages/ObjectDetectionPage';
 import GlobalStyle from './styles/GlobalStyle';
 import { AuthProvider } from './components/AuthContext';
@@ -65,6 +66,7 @@ const AppLayout = () => {
   const location = useLocation();
   const isLoginPage = location.pathname === '/';
   const isSignupPage = location.pathname === '/signup';
+  const isCsPage = location.pathname === '/cs';
 
   return (
     <AppContainer>
@@ -75,6 +77,7 @@ const AppLayout = () => {
           <Route exact path="/signup" element={<SignupPage/>}/>
           <Route exact path="/main" element={<MainPage />} />
           <Route exact path="/objects" element={<ObjectDetectionPage />} />
+          <Route exact path="/cs" element={<CSPage />} />
         </Routes>
       </AppContent>
     </AppContainer>

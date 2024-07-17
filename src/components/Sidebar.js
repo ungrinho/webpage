@@ -16,6 +16,7 @@ const SidebarContainer = styled.div`
 `;
 
 const LogoutButton = styled.button`
+  display: flex;
   background-color: #f44336;
   color: white;
   padding: 10px;
@@ -23,7 +24,7 @@ const LogoutButton = styled.button`
   border-radius: 4px;
   cursor: pointer;
   margin-top: 20px;
-  alignItems: 'flex-end'
+  align-items: flex-end;
 `;
 
 const Sidebar = () => {
