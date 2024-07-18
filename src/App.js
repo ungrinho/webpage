@@ -1,45 +1,4 @@
-// import React, { useEffect, useState, useRef, useMemo } from 'react';
-// import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-// import LoginPage from './pages/LoginPage';
-// import SignupPage from './pages/SignupPage';
-// import MainPage from './pages/MainPage';
-// import PrivateRoute from './components/PrivateRoute';
-// import GlobalStyle from './styles/GlobalStyle';
-// import { AuthProvider } from './components/AuthContext';
-// import axios from 'axios';
-// import './App.css';
-// import ObjectDetectionPage from './pages/ObjectDetectionPage'
-
-
-// function App() {
-//   return (
-//     <>
-//       <GlobalStyle />
-//       <Router>
-//         <Routes>
-//           <Route exact path="/" element={<LoginPage />} />
-//           <Route exact  path="/signup" element={<SignupPage />} />
-//           <Route exact  
-//             path="/main"
-//             element={<MainPage />}
-//           />
-//           <Route exact path="/objects" element={<ObjectDetectionPage />} />
-//         </Routes>
-//       </Router>
-//     </>
-//   );
-// }
-
-
-
-
-
-// export default App;
-
-
-
-// src/App.js
-import React from 'react';
+import React, {useState} from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
@@ -48,10 +7,13 @@ import CSPage from './pages/CSPage';
 import ObjectDetectionPage from './pages/ObjectDetectionPage';
 import GlobalStyle from './styles/GlobalStyle';
 import { AuthProvider } from './components/AuthContext';
-import { SidebarProvider } from './context/SidebarContext'; // 경로 수정
+import { SidebarProvider } from './context/SidebarContext'; 
 import Sidebar from './components/Sidebar';
 import styled from 'styled-components';
 import './App.css';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 const AppContainer = styled.div`
   display: flex;
@@ -68,6 +30,11 @@ const AppLayout = () => {
   const isSignupPage = location.pathname === '/signup';
   const isCsPage = location.pathname === '/cs';
 
+  const [imageSrc, setImageSrc] = useState(null);
+  const handleImageUpload = (image) => {
+    setImageSrc(image);
+  };
+
   return (
     <AppContainer>
       {!isLoginPage && !isSignupPage && <Sidebar />}
@@ -76,7 +43,7 @@ const AppLayout = () => {
           <Route exact path="/" element={<LoginPage />} />
           <Route exact path="/signup" element={<SignupPage/>}/>
           <Route exact path="/main" element={<MainPage />} />
-          <Route exact path="/objects" element={<ObjectDetectionPage />} />
+          <Route exact path="/obj" element={<ObjectDetectionPage />} />
           <Route exact path="/cs" element={<CSPage />} />
         </Routes>
       </AppContent>
@@ -95,34 +62,10 @@ function App() {
           </Router>
         </SidebarProvider>
       </AuthProvider>
+      <ToastContainer />
     </>
   );
 }
 
-
-// function App() {
-//   return (
-//     <>
-//       <GlobalStyle />
-//       <AuthProvider>
-//         <SidebarProvider>
-//           <Router>
-//             <AppContainer>
-//               <Sidebar />
-//               <AppContent>
-//                 <Routes>
-//                   <Route exact path="/" element={<LoginPage />} />
-//                   <Route exact path="/signup" element={<SignupPage />} />
-//                   <Route exact path="/main" element={<MainPage />} />
-//                   <Route exact path="/objects" element={<ObjectDetectionPage />} />
-//                 </Routes>
-//               </AppContent>
-//             </AppContainer>
-//           </Router>
-//         </SidebarProvider>
-//       </AuthProvider>
-//     </>
-//   );
-// }
 
 export default App;

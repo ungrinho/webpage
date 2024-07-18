@@ -6,17 +6,24 @@ function YesterdayData() {
 
   useEffect(() => {
     const { avg_temperature, avg_humidity } = yesterdayData
+    const uid = localStorage.getItem('uid');
     axios.get('http://localhost:8080/api/yesterdaySummary', {
-      ...yesterdayData
-    }).then((retval) => {
-      console.log("success!", retval.data[0].avgHumidity)
-      yesterdayData.avg_temperature = retval.data[0].avgTemperature
-      yesterdayData.avg_humidity = retval.data[0].avgHumidity
-      console.log(avg_temperature)
+      params:{
+        uid: uid
+      }
+    })
+      .then((retval) => {
+      console.log("success!")
+      const avgTemperature = retval.data[0].avgTemperature.toFixed(2)
+      const avgHumidity = retval.data[0].avgHumidity.toFixed(2)
+      setYesterdayData({
+        avg_temperature: avgTemperature,
+        avg_humidity: avgHumidity
+      })
     }).catch((retval) => {
       console.log("Error@@", retval)
     })
-  }, [yesterdayData]);
+  }, []);
 
   if (!yesterdayData) {
     return <div>Loading...</div>;

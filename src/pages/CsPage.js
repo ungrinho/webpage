@@ -16,10 +16,13 @@ const Header = styled.div`
 `;
 
 const BackButton = styled.button`
+  display: flex;
   background: none;
   border: none;
   font-size: 18px;
   cursor: pointer;
+  background-color: black;
+  justify-content: flex-start;
 `;
 
 const Title = styled.h1`
@@ -102,8 +105,8 @@ function CSPage() {
   return (
     <PageContainer>
       <Header>
-        <BackButton onClick={() => navigate('/')}>←</BackButton>
-        <Title>1:1 문의</Title>
+        <BackButton onClick={() => navigate('/main')}>←</BackButton>
+        <Title>문의 페이지</Title>
       </Header>
       <Form onSubmit={handleSubmit}>
         <Input
