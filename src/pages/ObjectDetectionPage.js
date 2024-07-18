@@ -46,6 +46,7 @@ function ObjectDetectionPage() {
           <Header />
           <Main>
             <VideoSection>
+            <img src='http://192.168.0.13:8080/stream?topic=/usb_cam1/image_raw' alt='nope'></img>
               <VideoStream />
             </VideoSection>
             <DetectionSection>

@@ -44,7 +44,7 @@ import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-route
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/SignupPage';
 import MainPage from './pages/MainPage';
-import CSPage from './pages/CSPage';
+import CSPage from './pages/CsPage';
 import ObjectDetectionPage from './pages/ObjectDetectionPage';
 import GlobalStyle from './styles/GlobalStyle';
 import { AuthProvider } from './components/AuthContext';
