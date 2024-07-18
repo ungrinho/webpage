@@ -11,14 +11,14 @@ function YesterdayData() {
       params:{
         uid: uid
       }
-    })
-    .then((retval) => {
-      console.log("success!", retval.data[0].avgHumidity)
+    }).then((retval) => {
+      console.log("success!")
+      const avgTemperature = retval.data[0].avgTemperature.toFixed(2)
+      const avgHumidity = retval.data[0].avgHumidity.toFixed(2)
       setYesterdayData({
-        avg_temperature: retval.data[0].avgTemperature.toFixed(2),
-        avg_humidity: retval.data[0].avgHumidity.toFixed(2)
+        avg_temperature: avgTemperature,
+        avg_humidity: avgHumidity
       })
-      console.log(avg_temperature)
     }).catch((retval) => {
       console.log("Error@@", retval)
     })
