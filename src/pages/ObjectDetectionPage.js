@@ -66,7 +66,7 @@ function ObjectDetectionPage() {
         <ContentWrapper>
           <Column>
             {/* //// 플라스크 주소로 추후 교체!!!!!!!!!! */}
-            <img src='http://192.168.0.13:8080/stream?topic=/usb_cam1/image_raw' alt='hhhh'></img>
+              <img src='http://192.168.0.13:8080/stream?topic=/usb_cam1/image_raw' alt='hhhh'></img>
           </Column>
           <Column>
             <DatePickerComponent 

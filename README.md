@@ -28,4 +28,7 @@
     "socket.io-client": "^4.7.5",
     "styled-components": "^6.1.11",
     "web-vitals": "^2.1.4"
+
+
+    npm install axios --legacy-peer-deps
 },
